@@ -1,0 +1,31 @@
+# Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+
+# Docker local volumes
+postgres-data/
+
+# Temporary files
+*.tmp
+*.swp

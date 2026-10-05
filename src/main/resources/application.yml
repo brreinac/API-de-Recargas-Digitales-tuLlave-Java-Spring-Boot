@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: tullave-recharge-api
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/tullave}
+    username: ${DB_USERNAME:tullave}
+    password: ${DB_PASSWORD:tullave}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    default-property-inclusion: non_null
+
+server:
+  port: ${SERVER_PORT:8080}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    co.tullave.rcg: INFO
