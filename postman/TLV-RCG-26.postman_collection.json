@@ -1,0 +1,87 @@
+{
+  "info": {
+    "name": "TLV-RCG-26",
+    "description": "Colección de pruebas para la API de Recargas Digitales tuLlave.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "rechargeId", "value": "1" },
+    { "key": "cardNumber", "value": "1010000012345678" }
+  ],
+  "item": [
+    {
+      "name": "Crear recarga - exitoso",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"cardNumber\": \"1010000012345678\",\n  \"amount\": 50000,\n  \"paymentMethod\": \"NEQUI\"\n}" },
+        "url": { "raw": "{{baseUrl}}/api/v1/recharges", "host": ["{{baseUrl}}"], "path": ["api", "v1", "recharges"] }
+      }
+    },
+    {
+      "name": "Crear recarga - cardNumber inválido",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"cardNumber\": \"123\",\n  \"amount\": 50000,\n  \"paymentMethod\": \"NEQUI\"\n}" },
+        "url": { "raw": "{{baseUrl}}/api/v1/recharges", "host": ["{{baseUrl}}"], "path": ["api", "v1", "recharges"] }
+      }
+    },
+    {
+      "name": "Crear recarga - amount menor al mínimo",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"cardNumber\": \"1010000012345678\",\n  \"amount\": 1999,\n  \"paymentMethod\": \"NEQUI\"\n}" },
+        "url": { "raw": "{{baseUrl}}/api/v1/recharges", "host": ["{{baseUrl}}"], "path": ["api", "v1", "recharges"] }
+      }
+    },
+    {
+      "name": "Crear recarga - amount mayor al máximo",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"cardNumber\": \"1010000012345678\",\n  \"amount\": 200001,\n  \"paymentMethod\": \"NEQUI\"\n}" },
+        "url": { "raw": "{{baseUrl}}/api/v1/recharges", "host": ["{{baseUrl}}"], "path": ["api", "v1", "recharges"] }
+      }
+    },
+    {
+      "name": "Crear recarga - paymentMethod inválido",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"cardNumber\": \"1010000012345678\",\n  \"amount\": 50000,\n  \"paymentMethod\": \"EFECTIVO\"\n}" },
+        "url": { "raw": "{{baseUrl}}/api/v1/recharges", "host": ["{{baseUrl}}"], "path": ["api", "v1", "recharges"] }
+      }
+    },
+    {
+      "name": "Listar recargas - paginado",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/v1/getRecharges?page=0&size=20", "host": ["{{baseUrl}}"], "path": ["api", "v1", "getRecharges"], "query": [{ "key": "page", "value": "0" }, { "key": "size", "value": "20" }] }
+      }
+    },
+    {
+      "name": "Listar recargas - filtro por cardNumber",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/v1/getRecharges?page=0&size=20&cardNumber={{cardNumber}}", "host": ["{{baseUrl}}"], "path": ["api", "v1", "getRecharges"], "query": [{ "key": "page", "value": "0" }, { "key": "size", "value": "20" }, { "key": "cardNumber", "value": "{{cardNumber}}" }] }
+      }
+    },
+    {
+      "name": "Eliminar recarga - exitoso",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "{{baseUrl}}/api/v1/recharges/{{rechargeId}}", "host": ["{{baseUrl}}"], "path": ["api", "v1", "recharges", "{{rechargeId}}"] }
+      }
+    },
+    {
+      "name": "Eliminar recarga - inexistente",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "{{baseUrl}}/api/v1/recharges/999999", "host": ["{{baseUrl}}"], "path": ["api", "v1", "recharges", "999999"] }
+      }
+    }
+  ]
+}
